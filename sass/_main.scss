@@ -4,7 +4,9 @@
     box-sizing: border-box;
 }
 
-$primary-color:rgb(186, 240, 186);
+$primary-color:rgb(233, 61, 61);
+$secondary-color: rgb(8, 8, 8);
+$third-color: rgb(24, 24, 24);
 $border-rad:.5rem;
 
 html {
@@ -13,24 +15,25 @@ html {
 
 body {
     font-family: 'Arial', sans-serif;
-    background: rgb(243, 243, 243);
+    background: $third-color;
 }
 
-h1 {
-    margin: 10rem 0 5rem;
-    font-size: 3rem;
-    color: grey;
-}
+
 
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 2rem 6rem;
-    background-color: #1d1d1d;
+    background-color: $secondary-color;
     color: $primary-color;
     font-size: 1.5rem;
+    z-index: 99;
 
 
 
@@ -78,44 +81,89 @@ nav {
 }
 
 main {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding-bottom: 10rem;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 90%;
+
+        .wrap {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+    }
 }
 
 .section-form {
 
-    margin: 5rem 0;
+    position: fixed;
+    top: 40%;
+    transform: translateY(-50%);
     font-size: 1.5rem;
-    color: grey;
-    background-color: white;
-    border-radius: $border-rad;
-    box-shadow: 0 .5rem 1rem rgba(2, 2, 2, 0.212);
+    color: $primary-color;
+
+    // box-shadow: 0 .5rem 1rem rgba(2, 2, 2, 0.212);
+
+    h1 {
+        text-align: center;
+        margin-bottom: 5rem;
+        font-size: 3rem;
+        color: $primary-color;
+    }
 
     form {
         @include flex-center-left-column;
+        width: 50rem;
         min-height: 15rem;
         padding: 5rem;
-
+        // border: .1rem solid $primary-color;
+        border-radius: 3rem;
+        background-color: $secondary-color;
         font-size: 2rem;
+        box-shadow: 0 0 2rem $primary-color;
 
 
 
         label {
             width: 100%;
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
         }
 
-        input {
+        input[type=text] {
             width: 100%;
             padding: 1rem;
-            border: .1rem solid grey;
-            border-radius: $border-rad;
-            margin-bottom: 2rem;
+            background-color: transparent;
+            border: none;
+            border-bottom: .1rem solid $primary-color;
+
+            color: $primary-color;
+            margin-bottom: 4rem;
+
+            &::placeholder {
+                color: $primary-color;
+                opacity: 0.7;
+
+            }
+
+            &:focus {
+                outline: none;
+                border-bottom: .2rem solid white;
+                color: white;
+            }
         }
+
 
         button {
             width: 100%;
@@ -123,13 +171,13 @@ main {
             border: none;
             border-radius: $border-rad;
             background-color: $primary-color;
-            color: rgb(31, 31, 31);
+            color: rgb(255, 255, 255);
             font-size: 1.5rem;
             cursor: pointer;
             transition: .2s ease-in-out;
 
             &:hover {
-                background-color: darken($primary-color, 10%);
+                filter: brightness(150%);
             }
         }
     }
@@ -142,12 +190,16 @@ main {
 // }
 
 .section-todo-list {
-    width: 40%;
-    box-shadow: 0 .4rem 1rem rgba(2, 2, 2, 0.212);
-    background-color: white;
+
+    width: 100%;
+    margin-top: 20rem;
+    // box-shadow: 0 .4rem 1rem rgba(2, 2, 2, 0.212);
+    // background-color: white;
+    border-radius: $border-rad;
+    color: white;
 
     ul {
-        padding: 3rem;
+        // padding: 3rem;
 
         li {
             list-style: none;
@@ -160,15 +212,16 @@ main {
             background-color: $primary-color;
             border-radius: $border-rad;
             font-size: 1.7rem;
-            transition: .4s ease-in-out;
+            transition: .3s linear;
             position: relative; // Ensures z-index works correctly
-            opacity: 0.7;
+            opacity: 0.9;
 
             /* 1. STYLING THE HOVERED ITEM */
             &:hover {
-                transform: scale(1.08); // The main item is the largest
-                background-color: rgb(114, 184, 114);
-                box-shadow: 0 0 1rem rgba(0, 0, 0, 0.822);
+                transform: scale(1.1); // The main item is the largest
+                filter: brightness(105%);
+                padding: 2rem 1rem;
+                // box-shadow: 0 0 1rem rgba(0, 0, 0, 0.822);
                 z-index: 10;
                 opacity: 1;
                 // transition-delay: 0.1s;
@@ -177,7 +230,7 @@ main {
             /* 2. STYLING THE NEXT SIBLING (The one AFTER the hovered item) */
             &:hover+li {
                 transform: scale(1.05);
-                background-color: rgb(151, 219, 151);
+                filter: brightness(115%);
                 transition-delay: .2s;
                 opacity: 0.7;
                 z-index: 5;
@@ -188,7 +241,7 @@ main {
             &:has(+ li:hover) {
                 transform: scale(1.05);
                 transition-delay: .1s;
-                background-color: rgb(149, 231, 149);
+                filter: brightness(115%);
                 opacity: 0.8;
                 z-index: 5;
             }
@@ -196,19 +249,34 @@ main {
             // &:last-child {
             //     margin-bottom: 0;
             // }
+            .btn-container {
+                button {
+                    padding: .5rem 1rem;
 
-            button {
-                padding: .5rem 1rem;
-                background-color: rgb(255, 186, 186);
-                border: .1rem solid rgb(243, 119, 119);
-                transition: .2s ease-in-out;
-                border-radius: $border-rad;
-                color: rgb(121, 27, 27);
+                    border: .1rem solid transparent;
+                    transition: .2s ease-in-out;
+                    border-radius: $border-rad;
+                    cursor: pointer;
 
-                &:hover {
-                    padding: .5rem 2rem;
+
+                    &:hover {
+                        padding: .5rem 2rem;
+                    }
+                }
+
+                .btn-delete {
+                    background-color: rgb(255, 186, 186);
+                    color: $primary-color;
+                    border-color: white;
+                }
+
+                .btn-edit {
+                    background-color: rgb(202, 255, 186);
+                    color: rgb(0, 77, 0);
+                    border-color: white;
                 }
             }
+
         }
     }
 }
