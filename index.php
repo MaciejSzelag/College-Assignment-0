@@ -1,3 +1,27 @@
+<?php 
+    session_start();
+    // ---------------------------CSRF-------------------------------
+    // csrf 
+    // creating csrf token id it doesnt exist 
+
+    if(empty($_SESSION['token'])){
+        $_SESSION['token'] = bin2hex(random_bytes(32));
+    }
+
+    // checking when sending
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['token']){
+             die('Security Error: Invalid CSRF token');
+        }
+    }
+    // ---------------------------CSRF-------------------------------
+
+    // ---------------------------form to display-------------------------------
+    // form display - add or edit
+    $formMode = isset($_GET['action']) && $_GET['action'] === 'edit'?'edit' : 'add';
+    // ---------------------------form to display-------------------------------
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -16,8 +40,8 @@
         </div>
         <div class="nav-list">
             <ul>
-                <li><a href="">All tasks</a></li>
-                <li><a href="">Add</a></li>
+                <li><a href="index.php">All tasks</a></li>
+                <li><a href="index.php">Add</a></li>
             </ul>
         </div>
 
@@ -29,30 +53,23 @@
                    
                 <section class="section-form">
                    <h1>To-Do List</h1>
-                    <form id="todo-form">
-                        <label for="todo-input">Add new task</label>
-                        <input type="text" id="todo-input" placeholder="Add a new task" required>
-                        <button type="submit">Add</button>
-                    </form>
+                   <?php 
+                   
+                   if ($formMode === 'edit'){
+                        include 'includes/edit.php';
+                   }else{
+                        include 'includes/add.php';
+                   }
+                   ?>
+                
                 </section>
             </div>
 
             <div class="wrap">
                 <section class="section-todo-list">
-                    <ul id="todo-list">
-            <?php for ($i = 1; $i < 51; $i++): ?>
-                <li>
-                    <!-- <input type="checkbox" id="task-<?php echo $i; ?>"> -->
-                    <label for="task-<?php echo $i; ?>"> Task no <?php echo $i; ?></label>
-                    
-                    <div class="btn-container">
-                        <button class="btn-delete" type="button">Delete</button>
-                        <button class="btn-edit" type="button">Edit</button>
-                    </div>
-                </li>
-            <?php endfor; ?>
-                       
-                    </ul>
+                    <?php 
+                        include 'includes/to_do_list.php';
+                   ?>
                 </section>
             </div>
         </div>
