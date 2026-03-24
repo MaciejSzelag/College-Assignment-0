@@ -1,4 +1,4 @@
-<form id="todo-form" method="POST" action="">
+<form method="POST" action="">
     <label for="todo-input">Edit task</label>
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['token']; ?>">
     <input type="hidden" name="action" value="add">

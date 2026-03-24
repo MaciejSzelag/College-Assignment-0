@@ -18,7 +18,23 @@ body {
     background: $third-color;
 }
 
+.pop-msg {
+    display: none;
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $primary-color;
+    color: white;
+    padding: 1.5rem 8rem;
+    border-radius: $border-rad;
+    box-shadow: 0 .5rem 1rem rgba(2, 2, 2, 0.534);
+    font-size: 2rem;
+}
 
+.show-popMSG {
+    display: block;
+}
 
 nav {
     position: fixed;
@@ -134,6 +150,7 @@ main {
 
 
 
+        span,
         label {
             width: 100%;
             text-align: center;

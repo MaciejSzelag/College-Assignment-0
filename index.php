@@ -1,9 +1,9 @@
 <?php 
-    include 'db_connect.php';
+   
     session_start();
     // ---------------------------CSRF-------------------------------
     // csrf 
-    // creating csrf token id it doesnt exist 
+    // creating csrf token id if doesn't exist 
 
     if(empty($_SESSION['token'])){
         $_SESSION['token'] = bin2hex(random_bytes(32));
@@ -33,6 +33,22 @@
 </head>
 
 <body>
+    <?php
+        if(isset($_SESSION['message'])){
+    ?>
+
+        <div class="pop-msg" id="popMSG">
+            <?php 
+                echo $_SESSION['message']; 
+                unset($_SESSION['message']);
+            ?>
+        </div>
+
+    <?php }?>
+
+       <!-- <div class="pop-msg" id="popMSG">
+            <p>Text added suscessfully</p>
+        </div> -->
     <nav>
         <div>
             <p>
@@ -77,7 +93,7 @@
     </main>
 
 
-
+<script src="js/script.js"></script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@
 
     try {
      $pdo = new PDO($dsn, $user, $pass, $options);
-     echo "Successfully connected to the database!";
+    //  echo "Successfully connected to the database!";
     } catch (\PDOException $e) {
         // if error - mesg will be displayed
         throw new \PDOException($e->getMessage(), (int)$e->getCode());
