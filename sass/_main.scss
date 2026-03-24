@@ -18,7 +18,7 @@ body {
     background: $third-color;
 }
 
-.pop-msg {
+#popMSG {
     display: none;
     position: fixed;
     top: 15%;
@@ -30,9 +30,11 @@ body {
     border-radius: $border-rad;
     box-shadow: 0 .5rem 1rem rgba(2, 2, 2, 0.534);
     font-size: 2rem;
+    z-index: 100;
+
 }
 
-.show-popMSG {
+#popMSG.show {
     display: block;
 }
 

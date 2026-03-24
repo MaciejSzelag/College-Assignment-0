@@ -1,15 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const popMSG = document.getElementById('popMSG');
-    if (popMSG) {
-        setTimeout(() => {
-            popMSG.classList.add(".show-popMSG");
-            console.log('show')
-        }, 100);
+document.addEventListener('DOMContentLoaded', () => {
+    const msg = document.getElementById('popMSG');
+    if (msg) {
+        // add class to show msg
+        msg.classList.add('show');
 
+        // delete msg
         setTimeout(() => {
-            popMSG.classList.remove(".show-popMSG");
-            console.log('removed')
-        }, 4000)
+            msg.classList.remove('show');
+        }, 3000);
     }
-
-})
+    console.log(msg)
+});

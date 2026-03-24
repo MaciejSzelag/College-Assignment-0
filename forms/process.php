@@ -2,6 +2,7 @@
 
 
     <?php 
+    session_start();
         require_once "../db_connect.php";
 
         function addTask($db, $taskName){
@@ -39,7 +40,7 @@
 
             switch($_POST['action']){
             case 'add':
-                if(addTask($pdo,$_POST['task'])){
+                if(addTask($pdo, $_POST['task'])){
                     $_SESSION['message'] = "Task added successfully";
                 }else{
                     $_SESSION['message'] = "Error adding task to data base";
@@ -58,16 +59,17 @@
             header('Location: ../index.php');
             exit;
 
-        }else{
-
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-
-            echo "<pre>";
-            print_r($_POST);
-            echo "</pre>";
-
         }
+        // else{
+
+        //     error_reporting(E_ALL);
+        //     ini_set('display_errors', 1);
+
+        //     echo "<pre>";
+        //     print_r($_POST);
+        //     echo "</pre>";
+
+        // }
 
 
     ?>

@@ -1,5 +1,6 @@
 <?php 
    
+
     session_start();
     // ---------------------------CSRF-------------------------------
     // csrf 
@@ -33,22 +34,20 @@
 </head>
 
 <body>
-    <?php
-        if(isset($_SESSION['message'])){
-    ?>
+<!--  -->
 
-        <div class="pop-msg" id="popMSG">
-            <?php 
-                echo $_SESSION['message']; 
-                unset($_SESSION['message']);
-            ?>
-        </div>
 
-    <?php }?>
 
-       <!-- <div class="pop-msg" id="popMSG">
-            <p>Text added suscessfully</p>
-        </div> -->
+  <?php if(isset($_SESSION['message'])): ?>
+    <div id="popMSG">
+        <?php 
+            echo $_SESSION['message']; 
+            unset($_SESSION['message']);
+        ?>
+    </div>
+<?php endif; ?>
+
+
     <nav>
         <div>
             <p>
