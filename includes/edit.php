@@ -1,8 +1,27 @@
-<form method="POST" action="">
+
+<?php 
+    include 'db_connect.php';
+
+    $id = $_GET['id'] ?? null;
+    if($id){
+        $stmt = $pdo->prepare("SELECT id, item_name FROM todo_list WHERE id = :id");
+        $stmt->execute([$id]);
+        $task = $stmt->fetch();
+
+    }
+    if(!$task){
+        die("Task was not found");
+    }
+
+
+?>
+<form action="forms/process.php" method="POST" >
     <label for="todo-input">Edit task</label>
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['token']; ?>">
-    <input type="hidden" name="action" value="add">
-    <input type="text" id="todo-input" value="Edit task" required>
+    <input type="hidden" name="action" value="update">
+    <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+
+    <input type="text" name="item_name" value="<?php echo htmlspecialchars($task['item_name'])  ?>" required>
     <div class="btn-wrap">
         <button type="submit">Submit</button> 
         <a class="btn-cancel" href="index.php">Cancel</a> 

@@ -5,9 +5,12 @@
     session_start();
         require_once "../db_connect.php";
 
+        // var_dump($_POST); 
+        // die();
+
         function addTask($db, $taskName){
 
-            $taskName = htmlspecialchars(trim($taskName));
+            $taskName = trim($taskName);
 
             if(empty($taskName)){
                 return false;
@@ -31,6 +34,21 @@
             return $stmt->execute([':id'=>$id]);
 
         }
+        function updateTask($db, $id, $taskName){
+            $taskName = trim($taskName);
+
+           
+            if (empty($id) || $taskName === '') {
+                return false;
+            }
+
+            $sql = "UPDATE todo_list SET item_name = :task WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            return $stmt->execute([
+                ':task' => $taskName,
+                ':id' => $id
+            ]);
+        }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if(!isset($_POST['action'])){
@@ -51,6 +69,13 @@
                     $_SESSION['message'] = "Task deleted successfully";
                 }else{
                     $_SESSION['message'] = "Error deleting task";
+                };
+                break;
+            case 'update':
+                if(updateTask($pdo, $_POST['id'], $_POST['item_name'])){
+                    $_SESSION['message'] = "Task has been updated successfully";
+                }else{
+                    $_SESSION['message'] = "Error updating task";
                 };
                 break;
             }

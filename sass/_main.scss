@@ -327,5 +327,9 @@ main {
             }
 
         }
+
+        li.completed {
+            background-image: linear-gradient(-90deg, rgb(107, 33, 33), $primary-color);
+        }
     }
 }

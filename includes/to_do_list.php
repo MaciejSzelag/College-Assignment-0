@@ -16,28 +16,32 @@ $tasks = $stmt->fetchAll();
     <?php
             }else{
                foreach($tasks as $task){ ?>
-    <li>
-        <span >
-            <?php echo $task['id']; ?>.
-            <?php echo $task['item_name']; ?>
-        </span>
-        <div class="btn-container">
-            <!-- <a class="btn-delete" href="delete">Delete</a> -->
-            <a class="btn-edit" href="index.php?action=edit&id=<?php echo $task['id']; ?>">Edit</a>
-            <form action="forms/process.php" method="POST" style="display:inline;">
+              <li class="<?= $task['completed'] ? 'completed' : '' ?>">
 
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['token']; ?>">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                <span >
+                     <span> <?php echo $task['completed'] ? '&#9989;' : '&#10006;' ?></span>
+                    <?php echo $task['id']; ?>.
+                    <?php echo $task['item_name']; ?>
+                   
+                   
+                </span>
+                <div class="btn-container">
+                    <!-- <a class="btn-delete" href="delete">Delete</a> -->
+                    <a class="btn-edit" href="index.php?action=edit&id=<?php echo $task['id']; ?>">Edit</a>
+                    <form action="forms/process.php" method="POST" style="display:inline;">
 
-                <button type="submit" class="btn-delete">
-                    Delete
-                </button>
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['token']; ?>">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
 
-            </form>
+                        <button type="submit" class="btn-delete">
+                            Delete
+                        </button>
 
-        </div>
-    </li>
-    <?php } 
+                    </form>
+
+                </div>
+            </li>
+            <?php } 
             }?>
 </ul>
