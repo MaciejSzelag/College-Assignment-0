@@ -1,0 +1,100 @@
+/* TODO LIST SECTION */
+.section-todo-list {
+    width: 100%;
+    margin-top: 20rem;
+    border-radius: $border-rad;
+    color: white;
+
+    h1 {
+        margin-bottom: 5rem;
+        text-align: center;
+        font-size: 3rem;
+        color: $primary-color;
+    }
+
+    ul {
+        li {
+            position: relative;
+            @include flex-row-adjustable(space-between, center);
+            margin-bottom: 0.4rem;
+            padding: 1rem;
+            list-style: none;
+            background-color: $primary-color;
+            border-radius: $border-rad;
+            font-size: 1.6rem;
+            opacity: 0.9;
+            transition: 0.3s linear;
+
+            &:hover {
+                z-index: 10;
+                padding: 2rem 1rem;
+                transform: scale(1.1);
+                filter: brightness(105%);
+                opacity: 1;
+            }
+
+            &:hover+li {
+                z-index: 5;
+                transform: scale(1.05);
+                filter: brightness(115%);
+                opacity: 0.7;
+                transition-delay: 0.2s;
+            }
+
+            &:has(+ li:hover) {
+                z-index: 5;
+                transform: scale(1.05);
+                filter: brightness(115%);
+                opacity: 0.8;
+                transition-delay: 0.1s;
+            }
+
+            &.completed {
+                background-image: linear-gradient(-90deg, rgb(107, 33, 33), $primary-color);
+            }
+
+            .is_completed {
+                padding: 0.5rem;
+                background-color: rgba(255, 255, 255, 0.589);
+                border-radius: $border-rad;
+            }
+
+            .btn-container {
+
+
+                button,
+                a {
+                    padding: 0.5rem 1rem;
+                    border: 0.1rem solid transparent;
+                    border-radius: $border-rad;
+                    font-size: 1.4rem;
+                    cursor: pointer;
+                    transition: 0.2s ease-in-out;
+
+                    &:hover {
+                        filter: brightness(90%);
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .btn-delete {
+                    background-color: rgb(255, 186, 186);
+                    color: $primary-color;
+                }
+
+                .btn-edit {
+                    background-color: rgb(202, 255, 186);
+                    color: rgb(0, 77, 0);
+                }
+
+                .btn-status {
+                    background-color: rgb(236, 236, 236);
+                    color: rgb(22, 22, 22);
+                }
+            }
+        }
+    }
+}
