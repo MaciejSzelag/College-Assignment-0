@@ -48,8 +48,8 @@
             $countTasks = $stmt->fetch();
                 ?>
                 <ul>
-                    <li class="li-counter todo">Tasks to do: <?php echo $countTasks['todo']; ?> </li>
-                    <li class="li-counter done">Tasks completed: <?php echo $countTasks['done']; ?></li>
+                    <li class="li-counter todo">Tasks to do: <?php echo $countTasks['todo'] != 0 ? $countTasks['todo'] : "0"; ?></li>
+                    <li class="li-counter done">Tasks completed: <?php echo $countTasks['done'] != 0 ? $countTasks['done'] : "0"; ?></li>
                 </ul>
  
         </div>
