@@ -34,33 +34,34 @@
 </head>
 
 <body>
-<!--  -->
-
-
-
-  <?php if(isset($_SESSION['message'])): ?>
-    <div id="popMSG">
-        <?php 
-            echo $_SESSION['message']; 
-            unset($_SESSION['message']);
-        ?>
-    </div>
-<?php endif; ?>
-
 
     <nav>
-        <div>
+        <div class="date">
             <p>
                 <?php echo date("D d F Y")?>
             </p>
         </div>
         <div class="nav-list">
-            <ul>
-                <li><a href="index.php">All tasks</a></li>
-                <li><a href="index.php">Add</a></li>
-            </ul>
+            <?php 
+            require_once "config/db_connect.php";
+            $stmt = $pdo->query("SELECT COUNT(*) as total, SUM(completed = 1) as done, SUM(completed = 0) as todo FROM todo_list");
+            $countTasks = $stmt->fetch();
+                ?>
+                <ul>
+                    <li class="li-counter todo">Tasks to do: <?php echo $countTasks['todo']; ?> </li>
+                    <li class="li-counter done">Tasks completed: <?php echo $countTasks['done']; ?></li>
+                </ul>
+ 
         </div>
 
+        <?php if(isset($_SESSION['message'])): ?>
+            <div id="popMSG">
+                <?php 
+                    echo $_SESSION['message']; 
+                    unset($_SESSION['message']);
+                ?>
+            </div>
+        <?php endif; ?>
     </nav>
     <main>
       
@@ -68,13 +69,13 @@
             <div class="wrap">
                    
                 <section class="section-form">
-                   <h1>To-Do List</h1>
+        
                    <?php 
                    
                    if ($formMode === 'edit'){
-                        include 'includes/edit.php';
+                        include 'includes/forms/edit.php';
                    }else{
-                        include 'includes/add.php';
+                        include 'includes/forms/add.php';
                    }
                    ?>
                 
@@ -82,7 +83,9 @@
             </div>
 
             <div class="wrap">
+                           
                 <section class="section-todo-list">
+                    <h1>To-Do List</h1>
                     <?php 
                         include 'includes/to_do_list.php';
                    ?>

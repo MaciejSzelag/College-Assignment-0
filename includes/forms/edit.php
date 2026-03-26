@@ -1,6 +1,6 @@
 
 <?php 
-    include 'db_connect.php';
+    include 'config/db_connect.php';
 
     $id = $_GET['id'] ?? null;
     if($id){
@@ -12,10 +12,8 @@
     if(!$task){
         die("Task was not found");
     }
-
-
 ?>
-<form action="forms/process.php" method="POST" >
+<form action="processes/process.php" method="POST" >
     <label for="todo-input">Edit task</label>
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['token']; ?>">
     <input type="hidden" name="action" value="update">

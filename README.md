@@ -1,40 +1,40 @@
-# College Assignments | Assignment 0
+# 📝 College Assignments | Assignment 0
 
-This repository contains the complete work for **Assignment 0**, including the formal documentation and the full source code for all tasks. I am documenting my progress through daily updates to maintain a clear version history and track the evolution of my solutions.
+This repository contains the complete work for **Assignment 0**, including formal documentation and the full source code for all required tasks. A key component of this assignment is a **functional To-Do List application** built as a practical implementation of the course criteria.
 
-## 📁 Repository Structure
+I am documenting my progress through daily updates to maintain a clear version history and track the evolution of my solutions.
 
-* **`/src`** — Full source code and implementation for all tasks mentioned in the assignment.
+---
+
+## 📂 Repository Structure
+
 * **`Assignment 0 - report.docx`** — The formal written report and theoretical part of the assignment.
+* **`/src`** — Core logic, reusable functions, and task implementations.
+* **`/processes`** — Backend handlers for form submissions (Add/Edit/Delete).
+* **`/config`** — Database connection settings and configuration.
+* **`/includes`** — Reusable HTML components (froms/edit,add; to do list).
 
 ---
 
-## 💻 Code Analysis & Implementation
+## 🛠️ To-Do Application Setup
 
-The implementation of the tasks described in the assignment is available for review in the source directory. Each script/file corresponds to the specific requirements outlined in the course material.
+As part of the practical tasks, a To-Do application was developed. Follow these steps to set up the environment:
 
-* **Language:** [HTML,CSS,JavaScript,PHP,MySQL]
-* **Focus:** Logic implementation, code efficiency, and adherence to assignment criteria.
+### ⚙️ Technologies Used
+* **Backend:** PHP 8.2 (Procedural Logic) -> next step (Object-Oriented)
+* **Database:** MySQL (Relational storage)
+* **Frontend:** HTML5, JavaScript (ES6+)
+* **Styling:** CSS3, SCSS/Sass (Modular styling)
 
+### 1. Database Configuration
+Create a database named `todo_db` in **phpMyAdmin** and execute the following SQL to create the required table structure:
 
-
-## 📄 How to View the Document
-
-Since GitHub does not render `.docx` files directly in the browser:
-1. Click on the **`Assignment 0 - report.docx`** file above.
-2. Click the **Download** button.
-3. Open the file using **Microsoft Word**, **Google Docs**, or **LibreOffice**.
-
-## 📊 Current Status: 🚧 Work In Progress (WIP)
-
-- [x] Initial setup of the repository
-- [x] Core code implementation for tasks
-- [/] Documentation draft (Daily updates)
-- [ ] Code refactoring and final polish
-- [ ] Final Submission
-
----
-
-**Course:** Software Development  
-**Author:** Maciej Szelag  
-**Last Updated:** 17 March 2026
+```sql
+CREATE TABLE `tasks` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `item_name` text NOT NULL,
+  `completed` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
