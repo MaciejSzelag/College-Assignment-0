@@ -13,6 +13,8 @@
     }
 
     ul {
+        text-align: left;
+
         li {
             position: relative;
             @include flex-row-adjustable(space-between, center);
@@ -24,6 +26,10 @@
             font-size: 1.6rem;
             opacity: 0.9;
             transition: 0.3s linear;
+
+            .li-span {
+                width: 60%;
+            }
 
             &:hover {
                 z-index: 10;
@@ -50,7 +56,7 @@
             }
 
             &.completed {
-                background-image: linear-gradient(-90deg, rgb(107, 33, 33), $primary-color);
+                background-color: rgb(107, 33, 33);
             }
 
             .is_completed {

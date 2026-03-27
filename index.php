@@ -34,7 +34,13 @@
 </head>
 
 <body>
-
+   <div id="customModal" class="modal">
+  <div class="modal-content">
+    <p>Czy na pewno chcesz usunąć to zadanie?</p>
+    <button id="confirmBtn">Tak, usuń</button>
+    <button id="cancelBtn">Anuluj</button>
+  </div>
+</div>
     <nav>
         <div class="date">
             <p>
@@ -44,7 +50,7 @@
         <div class="nav-list">
             <?php 
             require_once "config/db_connect.php";
-            $stmt = $pdo->query("SELECT COUNT(*) as total, SUM(completed = 1) as done, SUM(completed = 0) as todo FROM todo_list");
+            $stmt = $pdo->query("SELECT COUNT(*) as total, SUM(status = 1) as done, SUM(status = 0) as todo FROM tasks");
             $countTasks = $stmt->fetch();
                 ?>
                 <ul>
@@ -53,7 +59,6 @@
                 </ul>
  
         </div>
-
         <?php if(isset($_SESSION['message'])): ?>
             <div id="popMSG">
                 <?php 
@@ -64,26 +69,15 @@
         <?php endif; ?>
     </nav>
     <main>
-      
         <div class="container">
-            <div class="wrap">
-                   
+            <div class="wrap">  
                 <section class="section-form">
-        
                    <?php 
-                   
-                   if ($formMode === 'edit'){
-                        include 'includes/forms/edit.php';
-                   }else{
-                        include 'includes/forms/add.php';
-                   }
-                   ?>
-                
+                        include $formMode === 'edit' ? 'includes/forms/edit.php' : 'includes/forms/add.php';
+                   ?>              
                 </section>
             </div>
-
-            <div class="wrap">
-                           
+            <div class="wrap">           
                 <section class="section-todo-list">
                     <h1>To-Do List</h1>
                     <?php 
@@ -93,8 +87,6 @@
             </div>
         </div>
     </main>
-
-
 <script src="js/script.js"></script>
 </body>
 

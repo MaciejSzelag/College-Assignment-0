@@ -22,8 +22,6 @@ nav {
     .nav-list {
         @include flex-row-adjustable(space-evenly, center);
 
-
-
         ul {
             display: flex;
 

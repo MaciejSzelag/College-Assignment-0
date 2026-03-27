@@ -4,10 +4,9 @@
 
     $id = $_GET['id'] ?? null;
     if($id){
-        $stmt = $pdo->prepare("SELECT id, item_name FROM todo_list WHERE id = :id");
-        $stmt->execute([$id]);
+        $stmt = $pdo->prepare("SELECT id, item_name FROM tasks WHERE id = :id");
+        $stmt->execute([':id'=> $id]);
         $task = $stmt->fetch();
-
     }
     if(!$task){
         die("Task was not found");
