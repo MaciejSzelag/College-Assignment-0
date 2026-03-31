@@ -1,46 +1,61 @@
 <?php 
 include "classes.php";
 
-// Tabela autorów
-        $authorsData = [
-            1 => ['id' => 1, 'f_name' => 'George', 'l_name' => 'Orwell'],
-            2 => ['id' => 2, 'f_name' => 'Jane', 'l_name' => 'Austen'],
-            3 => ['id' => 3, 'f_name' => 'Stephen', 'l_name' => 'King'],
-        ];
+// Data symulation
+$authorsData = [
+    1 => ['id' => 1, 'f_name' => 'George', 'l_name' => 'Orwell'],
+    2 => ['id' => 2, 'f_name' => 'Jane', 'l_name' => 'Austen'],
+    3 => ['id' => 3, 'f_name' => 'Stephen', 'l_name' => 'King'],
+];
 
-        // Tabela książek (z kolumną author_id jako kluczem obcym)
-        $booksData = [
-            ['title' => '1984', 'author_id' => 1, 'year' => 1949, 'pages' => 328, 'price' => 10.99],
-            ['title' => 'Animal Farm', 'author_id' => 1, 'year' => 1945, 'pages' => 112, 'price' => 8.50],
-            ['title' => 'Pride and Prejudice', 'author_id' => 2, 'year' => 1813, 'pages' => 278, 'price' => 9.99],
-            ['title' => 'The Shining', 'author_id' => 3, 'year' => 1977, 'pages' => 447, 'price' => 14.99],
-        ];
+$booksData = [
+    ['title' => '1984', 'author_id' => 1, 'year' => 1949, 'pages' => 328, 'price' => 10.99],
+    ['title' => 'Animal Farm', 'author_id' => 1, 'year' => 1945, 'pages' => 112, 'price' => 8.50],
+    ['title' => 'Pride and Prejudice', 'author_id' => 2, 'year' => 1813, 'pages' => 278, 'price' => 9.99],
+    ['title' => 'The Shining', 'author_id' => 3, 'year' => 1977, 'pages' => 447, 'price' => 14.99],
+];
 
-        // first I have to create object(author) 
+$eBooksData = [
+    ['title' => 'Pride and Prejudice', 'author_id' => 2, 'year' => 1998, 'pages' => 400, 'price' => 5.99, 'fileSize' => 2.4, 'format' => 'PDF'],
+];
 
-        $authors = [];
-        foreach($authorsData as $id => $data){
-            $authors[$id] = new Author($data['id'], $data['f_name'], $data['l_name']);
-        }
+// 2. LOGIKA - TWORZENIE OBIEKTÓW
 
-        // right now i ahve to create library - and connect them using ID
-        $library = [];
-        foreach($booksData as $data){
+// Tworzymy obiekty autorów
+$authors = [];
+foreach($authorsData as $id => $data){
+    $authors[$id] = new Author($data['id'], $data['f_name'], $data['l_name']);
+}
 
-            $author = $authors[$data['author_id']];
+// Tworzymy bibliotekę zwykłych książek
+$library = [];
+foreach($booksData as $data){
+    $author = $authors[$data['author_id']];
+    $library[] = new Book (
+        $data['title'], 
+        $author,
+        $data['pages'],
+        $data['year'],
+        $data['price']
+    );
+}
 
-            $library[] = new Book (
-                $data['title'], 
-                $author,
-                $data['year'],
-                $data['pages'],
-                $data['price']
-            );
-
-
-        }
-   
+// Tworzymy bibliotekę ebooków
+$elibrary = [];
+foreach($eBooksData as $ebookData){ // Zmienione na $ebookData, żeby uniknąć błędów
+    $author = $authors[$ebookData['author_id']];
+    $elibrary[] = new EBook(
+        $ebookData['title'], 
+        $author, 
+        $ebookData['pages'], 
+        $ebookData['price'], 
+        $ebookData['year'],
+        $ebookData['fileSize'],
+        $ebookData['format']
+    );
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,25 +65,25 @@ include "classes.php";
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
-<main class="constainer">
-    <h1>Library</h1>
+<main class="container"> 
+    <h1 class="top-title">Books</h1>
     <section class="list">
-        <?php
-            foreach($library as $book){
-        ?>
-                    <div class="box">
-                        <?php echo $book->getInfo(); ?>
-
-                    </div>
-
-       <?php };?>
+        <?php foreach($library as $book): ?>
+            <div class="box">
+                <?php echo $book->getInfo(); ?>
+            </div>
+        <?php endforeach; ?>
     </section>
 
+    <h1 class="top-title">Ebooks</h1>
+    <section class="list">
+        <?php foreach($elibrary as $ebook): ?>
+            <div class="box">
+                <?php echo $ebook->getInfo(); ?>
+            </div>
+        <?php endforeach; ?>
+    </section>
 
 </main>
-
-
-
-    
 </body>
 </html>
