@@ -15,8 +15,6 @@ class Author {
 
 }
 
-
-
 // class: blueprint for creating objects
 
 class Product {
@@ -29,7 +27,6 @@ class Product {
     }
   
     // setter with validation - example of encapsulation
-
     //it allows to inform that price cannot be below 0; validate data integrity
     public function setPrice(float $price){
         if($price < 0){
@@ -44,15 +41,11 @@ class Product {
 
 }
 
-
-
 //inheritance (Book extends Product) - Book clss inherits properties and methods from Product
-
 class Book extends Product{
     public Author $author; // composition - using an object inside another object
     private int $pages; // privete - only this class sees it.
     public int $year;
-   
 
     public function __construct(string $title, Author $author, int $pages,int $year, float $price)
     {
@@ -64,7 +57,6 @@ class Book extends Product{
     }
 
     //polymphorism  - overriding the parent'sgetInfo method
-
     public function getInfo(): string
     {
        return "
@@ -77,7 +69,6 @@ class Book extends Product{
         </ul>
     ";
     }
-
 }
 
 class Ebook extends Book {
@@ -85,20 +76,16 @@ class Ebook extends Book {
     private string $format;
 
     public function __construct(string $title, Author $author, int $pages,int $year, float $price, float $fileSize, string $format = "EPUB"){
-
         // data from class Book (constructor) 
         parent::__construct($title, $author, $pages, $year, $price);
-        
         $this->fileSize = $fileSize;
         $this->format = $format;
-
     }
     //polymphorism  - overriding the parent'sgetInfo method
     // overwriting getInfo() - adding informations oabout a file 
 
     public function getInfo():string {
         $bookBaseInfo = parent::getInfo(); // retrieving the list form call Book
-
         return str_replace("</ul>", "
             <li><strong>Format:</strong> {$this->format}</li>
             <li><strong>File Size:</strong> {$this->fileSize} MB</li>
@@ -107,10 +94,8 @@ class Ebook extends Book {
 }
 
 class Library {
-
 //one array bc of Polymorphism
     private array $bookItems = [];
-
         //any object - instance of Product
         public function addBookItem(Product $bookItem){
             $this->bookItems[] = $bookItem;
@@ -121,8 +106,5 @@ class Library {
                 echo "<div class='box'> {$book->getInfo() }</div>";
 
             }
-
         }
-
-
 }
