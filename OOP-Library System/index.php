@@ -15,45 +15,33 @@ $booksData = [
     ['title' => 'The Shining', 'author_id' => 3, 'year' => 1977, 'pages' => 447, 'price' => 14.99],
 ];
 
-$eBooksData = [
+$ebooksData = [
     ['title' => 'Pride and Prejudice', 'author_id' => 2, 'year' => 1998, 'pages' => 400, 'price' => 5.99, 'fileSize' => 2.4, 'format' => 'PDF'],
 ];
 
-// 2. LOGIKA - TWORZENIE OBIEKTÓW
+// 2. logic creating objects
 
-// Tworzymy obiekty autorów
+// I am creating objects
 $authors = [];
 foreach($authorsData as $id => $data){
     $authors[$id] = new Author($data['id'], $data['f_name'], $data['l_name']);
 }
 
-// Tworzymy bibliotekę zwykłych książek
-$library = [];
-foreach($booksData as $data){
-    $author = $authors[$data['author_id']];
-    $library[] = new Book (
-        $data['title'], 
-        $author,
-        $data['pages'],
-        $data['year'],
-        $data['price']
-    );
-}
 
-// Tworzymy bibliotekę ebooków
-$elibrary = [];
-foreach($eBooksData as $ebookData){ // Zmienione na $ebookData, żeby uniknąć błędów
-    $author = $authors[$ebookData['author_id']];
-    $elibrary[] = new EBook(
-        $ebookData['title'], 
-        $author, 
-        $ebookData['pages'], 
-        $ebookData['price'], 
-        $ebookData['year'],
-        $ebookData['fileSize'],
-        $ebookData['format']
-    );
-}
+
+// library: ebooks
+ $myEbookLibrary = new Library();
+    foreach($ebooksData as $eBookData){
+        $author = $authors[$eBookData['author_id']];
+        $myEbookLibrary->addBookItem(new Ebook($eBookData['title'],$author, $eBookData['pages'], $eBookData['year'], $eBookData['price'], $eBookData['fileSize'],$eBookData['format']));
+    }
+
+   
+ $myLibrary = new Library();
+    foreach($booksData as $data){
+        $author = $authors[$data['author_id']];
+        $myLibrary->addBookItem(new Book($data['title'],$author, $data['pages'],$data['year'], $data['price']));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -68,20 +56,17 @@ foreach($eBooksData as $ebookData){ // Zmienione na $ebookData, żeby uniknąć 
 <main class="container"> 
     <h1 class="top-title">Books</h1>
     <section class="list">
-        <?php foreach($library as $book): ?>
-            <div class="box">
-                <?php echo $book->getInfo(); ?>
-            </div>
-        <?php endforeach; ?>
+     
+       
+                <?php echo $myLibrary->showAllCatalog(); ?>
+           
+          
+       
     </section>
 
     <h1 class="top-title">Ebooks</h1>
     <section class="list">
-        <?php foreach($elibrary as $ebook): ?>
-            <div class="box">
-                <?php echo $ebook->getInfo(); ?>
-            </div>
-        <?php endforeach; ?>
+        <?php echo $myEbookLibrary->showAllCatalog(); ?>
     </section>
 
 </main>

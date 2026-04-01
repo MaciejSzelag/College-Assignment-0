@@ -103,3 +103,24 @@ class Ebook extends Book {
         </ul>", $bookBaseInfo);
     }
 }
+
+class Library {
+
+//one array bc of Polymorphism
+    private array $bookItems = [];
+
+        //any object - instance of Product
+        public function addBookItem(Product $bookItem){
+            $this->bookItems[] = $bookItem;
+        }
+    //single method displays book and ebooks
+        public function showAllCatalog(){
+            foreach($this->bookItems as $book){
+                echo "<div class='box'>" . $book->getInfo() . "</div>";
+
+            }
+
+        }
+
+
+}
