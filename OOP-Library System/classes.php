@@ -1,6 +1,22 @@
 <!-- class declaration -->
 
 <?php 
+// information about author
+class Author {
+    public int $id;
+    public string $firstName;
+    public string $lastName;
+
+    public function __construct($id,$fn,$ln){
+        $this->id = $id;
+        $this->firstName = $fn;
+        $this->lastName = $ln;
+    }
+
+}
+
+
+
 // class: blueprint for creating objects
 
 class Product {
@@ -28,20 +44,6 @@ class Product {
 
 }
 
-
-// information about author
-class Author {
-    public int $id;
-    public string $firstName;
-    public string $lastName;
-
-    public function __construct($id,$fn,$ln){
-        $this->id = $id;
-        $this->firstName = $fn;
-        $this->lastName = $ln;
-    }
-
-}
 
 
 //inheritance (Book extends Product) - Book clss inherits properties and methods from Product
@@ -116,7 +118,7 @@ class Library {
     //single method displays book and ebooks
         public function showAllCatalog(){
             foreach($this->bookItems as $book){
-                echo "<div class='box'>" . $book->getInfo() . "</div>";
+                echo "<div class='box'> {$book->getInfo() }</div>";
 
             }
 
