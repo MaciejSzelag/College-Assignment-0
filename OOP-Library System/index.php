@@ -21,13 +21,17 @@ $ebooksData = [
 
 // 2. logic creating objects
 
-// I am creating objects
+// creating objects for authors using data symlation 
 $authors = [];
 foreach($authorsData as $id => $data){
     $authors[$id] = new Author($data['id'], $data['f_name'], $data['l_name']);
 }
 
-
+$myLibrary = new Library();
+    foreach($booksData as $data){
+        $author = $authors[$data['author_id']];
+        $myLibrary->addBookItem(new Book($data['title'],$author, $data['pages'],$data['year'], $data['price']));
+}
 
 // library: ebooks
  $myEbookLibrary = new Library();
@@ -37,11 +41,7 @@ foreach($authorsData as $id => $data){
     }
 
    
- $myLibrary = new Library();
-    foreach($booksData as $data){
-        $author = $authors[$data['author_id']];
-        $myLibrary->addBookItem(new Book($data['title'],$author, $data['pages'],$data['year'], $data['price']));
-    }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,12 +56,8 @@ foreach($authorsData as $id => $data){
 <main class="container"> 
     <h1 class="top-title">Books</h1>
     <section class="list">
-     
-       
-                <?php echo $myLibrary->showAllCatalog(); ?>
-           
-          
-       
+        <!-- simple call the library's display method  -->
+                  <?php echo $myLibrary->showAllCatalog(); ?> 
     </section>
 
     <h1 class="top-title">Ebooks</h1>
