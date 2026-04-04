@@ -1,0 +1,84 @@
+/* NAVIGATION */
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    @include flex-row-adjustable(space-evenly, center);
+    width: 100%;
+    padding: 2rem 6rem;
+    background-color: $secondary-color;
+    color: $primary-color;
+    font-size: 1.5rem;
+
+    .date {
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: whitesmoke;
+    }
+
+    .nav-list {
+        @include flex-row-adjustable(space-evenly, center);
+
+        ul {
+            display: flex;
+
+            li {
+                margin: 0 1.5rem;
+                list-style: none;
+                overflow: hidden;
+            }
+
+            .li-counter {
+                font-size: 2rem;
+            }
+
+            .todo {
+                color: $primary-color;
+            }
+
+            .done {
+                color: rgb(120, 250, 120);
+            }
+        }
+    }
+
+    /* ALERT */
+    #popMSG {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        display: none;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-rad;
+        box-shadow: 0 0.5rem 1rem rgba(2, 2, 2, 0.534);
+        font-size: 2rem;
+
+        &.show {
+            display: block;
+        }
+
+        .alert-success,
+        .alert-error {
+            @include flex-row-adjustable(center, center);
+            width: 100%;
+            height: 100%;
+            padding: 1.5rem 8rem;
+
+        }
+
+        .alert-success {
+            background-color: rgb(164, 255, 164);
+            color: rgb(0, 121, 0);
+        }
+
+        .alert-error {
+            background-color: rgb(255, 143, 143);
+            color: rgb(146, 0, 0);
+        }
+    }
+}
