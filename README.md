@@ -33,7 +33,7 @@ Create a database named `todo_db` in **phpMyAdmin** and execute the following SQ
 CREATE TABLE `tasks` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `item_name` text NOT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
